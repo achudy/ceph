@@ -1,0 +1,19 @@
+---
+# It starts the deployment
+
+- hosts:
+  - mons
+  - osds
+  - mdss
+  - rgws
+  - mgrs
+  
+  gather_facts: false
+  any_errors_fatal: true
+  become: true
+
+  vars:
+    delegate_facts_host: True
+  
+  pre_tasks:
+    - import_tasks: install_python2.yml

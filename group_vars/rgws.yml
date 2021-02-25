@@ -1,0 +1,5 @@
+---
+# Variables to all host groups
+
+cluster: ceph
+
