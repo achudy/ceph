@@ -1,0 +1,44 @@
+---
+# Variables to all host groups
+
+# Python interpreter
+ansible_python_interpreter: /usr/bin/python3
+
+# Cluster name (use default "ceph")
+cluster: ceph-baremetal
+
+# Permissions to dirs
+ceph_directories_mode: "0755"
+
+# repo: community
+ceph_origin: repository
+ceph_repository: community
+ceph_mirror: http://download.ceph.com
+ceph_stable_key: https://download.ceph.com/keys/release.asc
+
+# Stable release
+ceph_stable_release: octopus
+ceph_stable_repo: "{{ ceph_mirror }}/debian-{{ ceph_stable_release }}"
+
+# Config cephfs and pools
+cephfs: ceph-filesystem # name of the ceph filesystem
+cephfs_data_pool: {"name": ceph-fs-data}
+cephfs_metadata_pool: {"name": ceph-fs-metadata}
+cephfs_pools:
+  - "{{ cephfs_data_pool }}"
+  - "{{ cephfs_metadata_pool }}"
+
+# Networkconfig
+public_network: 10.246.50.32/27 
+cluster_network: 10.246.50.64/27
+
+# choose bluestore
+osd_objectstore: bluestore
+
+# Dashboard config
+dashboard_enabled: True
+dashboard_protocol: http
+dashboard_port: 8443
+dashboard_admin_user: ceph
+dashboard_admin_password: P@ssw0rd
+dashboard_rgw_api_user_id: ceph-dashboard

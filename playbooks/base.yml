@@ -1,0 +1,24 @@
+---
+# Install python
+- hosts: all
+  become: yes
+  gather_facts: no
+  tasks:
+    - name: check for python
+      stat:
+        path: "{{ item }}"
+      ignore_errors: yes
+      register: systempython
+      with_items:
+        - /usr/bin/python
+        - /usr/bin/python3
+    - name: install python
+      raw: apt -y install python
+      ignore_errors: yes
+      when: systempython is failed or systempython.stat.exists is undefined or systempython.stat.exists == false
+
+- hosts: all
+  become: yes
+  gather_facts: no
+  roles:
+    - apt-update

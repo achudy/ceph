@@ -1,3 +1,5 @@
+one ansible_host=127.0.0.1 ansible_port=2204 ansible_user=user ansible_password=!QAZxsw2 ansible_become_password=!QAZxsw2
+
 [mons]
 
 

@@ -1,0 +1,47 @@
+---
+# Installing ceph keys, repository and ceph-common package
+
+- name: Check for ceph keys
+  shell: cat /etc/apt/trusted.gpg | grep Ceph
+  register: ceph_key_presence
+
+- name: Add ceph keys
+  raw: wget -q -O- 'https://download.ceph.com/keys/release.asc' | sudo apt-key add -
+  when: ceph_key_presence.stdout != "Binary file (standard input) matches"
+
+- apt_repository:
+    repo: deb https://download.ceph.com/debian-octopus/ focal main
+    state: present
+
+- name: Install dependencies
+  apt:
+    name: ['ceph-common']
+    state: present
+
+# Standard update and reboot if needed
+
+- name: Update APT cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: Check if there are available updates
+  command: /usr/lib/update-notifier/apt-check --package-names
+  register: pkg_list
+
+- name: Perform upgrade of all packages to the latest version
+  apt:
+    upgrade: dist
+  when: pkg_list.stderr != ""
+
+- name: Check if a reboot is required
+  stat: path=/var/run/reboot-required get_md5=no
+  register: reboot_flag
+
+- name: Reboot the server if needed
+  reboot:
+    reboot_timeout: 300
+  when: reboot_flag.stat.exists == true
+
+- debug:
+    msg: "Server is back up and running"
