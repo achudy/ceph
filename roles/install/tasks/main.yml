@@ -1,0 +1,40 @@
+---
+# Installing ceph keys, repository, the ceph package and other dependencies. Making a log folder.
+
+- name: Check for ceph keys
+  shell: cat /etc/apt/trusted.gpg | grep Ceph
+  register: ceph_key_presence
+
+- name: Add ceph keys
+  raw: wget -q -O- 'https://download.ceph.com/keys/release.asc' | sudo apt-key add -
+  when: ceph_key_presence.stdout != "Binary file (standard input) matches"
+
+- apt_repository:
+    repo: deb https://download.ceph.com/debian-octopus/ focal main
+    state: present
+
+- name: Install dependencies
+  apt:
+    name: ['ceph', 'ntp', 'curl' ,'libcurl3-gnutls', 'libaio1', 'libgoogle-perftools4', 'google-perftools', 'libgoogle-perftools-dev', 'libleveldb1d', 'rsync']
+    state: present
+
+- name: Check for config folder
+  stat: path=/etc/ceph
+  register: ceph_config_folder
+
+- name: Check for log folder
+  stat: path=/var/log/ceph
+  register: ceph_log_folder
+
+- name: Create log folder if not present
+  file: 
+    path: /var/log/ceph
+    state: dictionary
+    owner: user
+    group: user
+    mode: 0770
+  when: not ceph_log_folder
+
+# optionally g+s and +t permissions on the folder
+#TODO
+

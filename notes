@@ -1,1 +1,12 @@
 sudo apt install sshpass
+
+
+#TODOs:
+* NTP
+* SSH keys
+* Ceph conf 
+- mons
+- mgrs
+- task for mons and mgrs making a quorum
+- osds with bluestore
+- pools 
