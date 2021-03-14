@@ -13,7 +13,7 @@
         - /usr/bin/python
         - /usr/bin/python3
     - name: install python
-      raw: apt -y install python
+      raw: apt -y install python3
       ignore_errors: yes
       when: systempython is failed or systempython.stat.exists is undefined or systempython.stat.exists == false
 

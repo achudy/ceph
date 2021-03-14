@@ -1,0 +1,57 @@
+---
+#Ceph configuration
+
+- hosts: all
+  become: yes
+  gather_facts: no
+  tasks:
+    - debug: var=inventory_hostname
+
+# NTP role
+- hosts: all
+  become: yes
+  gather_facts: yes
+  roles: 
+    - ntp
+
+
+# First mon
+- hosts: mon_one
+  become: yes
+  gather_facts: no
+  roles:
+    - keys
+    - ceph-conf
+    - keys
+    - mon
+    - mgr
+    
+# # Synchronization of the other mons
+# - role: ceph_conf_sync.yml
+#   when: not ansible_hostname == mon_one
+    
+# # Making of the other mons
+# - block:
+#     - role: quorum
+#   when: inventory_hostname in groups['mons'] and not ansible_hostname == mon_one
+    
+# # Making of the osds
+# - block:
+#     - role: block-devices
+#     - block:
+#         - role: osd
+#           when: ceph_osd_format == "filestore" or ceph_osd_format == "bluestore"
+#           with_items: "{{ free_disks }}"
+#           loop_control:
+#             loop_var: free_osd
+#       when: free_disks is defined
+#   when: inventory_hostname in groups['osds']
+
+# # Pool creation
+# - role: pool
+#   when: ansible_hostname == mon_one
+
+# # RDB creation
+# - block:
+#     - role: rbd
+#   when: inventory_hostname in groups['clients']
