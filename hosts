@@ -1,4 +1,4 @@
-mon_one ansible_host=127.0.0.1 ansible_port=2222 ansible_user=user ansible_password=!QAZxsw2 ansible_become_password=!QAZxsw2
+mon_one ansible_host=192.168.0.32 ansible_user=root ansible_password=!QAZxsw2
 
 [mons]
 mon_one

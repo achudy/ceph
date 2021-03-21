@@ -1,0 +1,5 @@
+
+[global]
+fsid = {{ ceph_fsid }}
+mon initial members = {{ ansible_hostname }}
+mon host = {{ groups['mons']| map('extract', hostvars, ['ansible_host']) | join(',') }}

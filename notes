@@ -1,3 +1,5 @@
+*** Ansible machine config
+sudo apt install ansible
 sudo apt install sshpass
 
 
