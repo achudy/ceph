@@ -1,13 +1,13 @@
 ---
 # Installing ceph keys, repository, the ceph package and other dependencies. Making a log folder.
 
-# - name: Check for ceph keys
-#   shell: cat /etc/apt/trusted.gpg | grep Ceph
-#   register: ceph_key_presence
+- name: Check for ceph keys
+  shell: cat /etc/apt/trusted.gpg | grep Ceph
+  register: ceph_key_presence
 
 - name: Add ceph keys
   raw: wget -q -O- 'https://download.ceph.com/keys/release.asc' | sudo apt-key add -
-  # when: ceph_key_presence.stdout != "Binary file (standard input) matches"
+  when: ceph_key_presence.stdout != "Binary file (standard input) matches"
 
 - name: Add ceph repository
   apt_repository:

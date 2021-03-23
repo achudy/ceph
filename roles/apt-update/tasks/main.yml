@@ -11,10 +11,23 @@
   command: /usr/lib/update-notifier/apt-check --package-names
   register: pkg_list
 
-- name: Perform upgrade of all packages to the latest version
+- name: Update all packages to their latest version
+  apt:
+    name: "*"
+    state: latest
+
+- name: Upgrade the OS (apt-get dist-upgrade)
   apt:
     upgrade: dist
   when: pkg_list.stderr != ""
+
+- name: Remove useless packages from the cache
+  apt:
+    autoclean: yes
+
+- name: Remove dependencies that are no longer required
+  apt:
+    autoremove: yes
 
 - name: Check if a reboot is required
   stat: path=/var/run/reboot-required get_md5=no

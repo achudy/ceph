@@ -24,6 +24,8 @@
     - keys
     - mon
     - mgr
+  tags: 
+    - run_mon
     
 # # Synchronization of the other mons
 # - role: ceph_conf_sync.yml

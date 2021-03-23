@@ -5,7 +5,8 @@
 ansible_python_interpreter: /usr/bin/python3
 
 # Cluster name (use default "ceph")
-cluster: ceph-baremetal
+cluster: ceph
+ceph_uid: ceph
 
 # Group names in inventory/hosts
 mon_group_name: mons
@@ -36,8 +37,8 @@ cephfs_pools:
   - "{{ cephfs_metadata_pool }}"
 
 # Networkconfig
-public_network: 10.0.0.0/25
-cluster_network: 10.0.0.128/25
+public_network: 192.168.0.0/25
+cluster_network: 192.168.0.128/25
 
 # choose bluestore
 osd_objectstore: bluestore
