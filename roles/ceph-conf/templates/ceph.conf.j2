@@ -1,22 +1,11 @@
 [global]
 fsid = {{ ceph_fsid }}
-mon initial members = {{ ansible_hostname }}
-mon addr = {{ groups['mons']| map('extract', hostvars, ['ansible_host']) | join(',') }}
+mon_initial_members = {{ ansible_hostname }}
+mon_host = {{ groups['mons']| map('extract', hostvars, ['ansible_host']) | join(',') }}
 
 public network = {{ public_network }}
-cluster network = {{ cluster_network }}
-auth cluster required = cephx
-auth service required = cephx
-auth client required = cephx
-osd journal size = 256
-osd pool default size = 3
-osd pool default min size = 2
-osd pool default pg num = 64
-osd pool default pgp num = 64
-osd crush chooseleaf type = 1
+private network = {{ cluster_network }}
+auth_cluster_required = cephx
+auth_service_required = cephx
+auth_client_required = cephx
 
-[client]
-rbd_cache = true
-rbd_cache_size = 32
-rbd_cache_max_dirty = 24
-rdb_default_features = 3

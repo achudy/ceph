@@ -4,6 +4,10 @@
 - name: Check for ceph keys
   shell: cat /etc/apt/trusted.gpg | grep Ceph
   register: ceph_key_presence
+  ignore_errors: yes
+
+- debug:
+    msg: "{{ ceph_key_presence.stdout }}"
 
 - name: Add ceph keys
   raw: wget -q -O- 'https://download.ceph.com/keys/release.asc' | sudo apt-key add -
@@ -16,7 +20,7 @@
 
 - name: Install dependencies
   apt:
-    name: ['ceph', 'ntp', 'curl' ,'libcurl3-gnutls', 'libaio1', 'libgoogle-perftools4', 'google-perftools', 'libgoogle-perftools-dev', 'libleveldb1d', 'rsync', 'acl']
+    name: ['ceph', 'sshpass', 'ntp', 'curl' ,'libcurl3-gnutls', 'libaio1', 'libgoogle-perftools4', 'google-perftools', 'libgoogle-perftools-dev', 'libleveldb1d', 'rsync', 'acl']
     state: present
 
 - name: Check for config folder

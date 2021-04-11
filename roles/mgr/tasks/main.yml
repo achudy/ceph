@@ -21,7 +21,7 @@
         executable: /bin/bash
       become: yes
       become_user: ceph
-      become_method: su
+      # become_method: su
     
     - name: import mgr key to mon keyring
       shell: "ceph-authtool {{ item }} --import-keyring /var/lib/ceph/mgr/ceph-{{ inventory_hostname }}/keyring"
@@ -32,7 +32,7 @@
         - /etc/ceph/ceph.client.admin.keyring
       become: yes
       become_user: ceph
-      become_method: su
+      # become_method: su
     
   when: not ceph_mgr_key.stat.exists
 
@@ -83,4 +83,4 @@
       args:
         executable: /bin/bash
       notify: restart mgr
-  when: inventory_hostname == "mon_one"
+  when: inventory_hostname == "node1"

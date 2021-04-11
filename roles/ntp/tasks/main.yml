@@ -22,11 +22,11 @@
         name: ntp
         state: started
         enabled: True
-  when: inventory_hostname == "mon_one"
+  when: inventory_hostname == "node1"
 
 - name: get ntp server facts
   setup:
-  delegate_to: mon_one
+  delegate_to: node1
   delegate_facts: True
 
 - block:
@@ -34,7 +34,7 @@
       lineinfile: dest=/etc/ntp.conf state=absent regexp='(^|\n)server\s.*'
     
     - name: push ntp server to client
-      lineinfile: dest=/etc/ntp.conf line="server {{ hostvars[mon_one]['ansible_default_ipv4']['address'] }} iburst"
+      lineinfile: dest=/etc/ntp.conf line="server {{ hostvars[node1]['ansible_default_ipv4']['address'] }} iburst"
       args:
         insertafter: BOF
       delegate_facts: True
@@ -48,7 +48,7 @@
       shell: ntpd -q -g -x -n
       args:
         executable: /bin/bash
-  when: not inventory_hostname == "mon_one"
+  when: not inventory_hostname == "node1"
 
 - name: start ntp
   service:
