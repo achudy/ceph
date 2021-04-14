@@ -6,6 +6,8 @@
   gather_facts: no
   tasks:
     - debug: var=inventory_hostname
+  tags: 
+    - tag_debug
 
 # NTP role
 - hosts: all
@@ -13,6 +15,8 @@
   gather_facts: yes
   roles: 
     - ntp
+  tags:
+    - tag_ntp
 
 # First mon
 - hosts: node1
@@ -24,43 +28,50 @@
     - mon
     - mgr
   tags: 
-    - run_mon
+    - tag_mon1
     
 # Synchronization of the other mons
-- hosts: node2,node3
+- hosts: other-mons
   become: yes
-  gather_facts: no
-  roles: 
+  gather_facts: yes
+  roles:
     - ceph-conf-sync
   tags:
-    - synchro
+    - tag_synchro
     
 # Making of the other mons
-- hosts: node2,node3
+- hosts: other-mons
   become: yes
-  gather_facts: no
-  roles: 
+  gather_facts: yes
+  roles:
     - quorum
   tags:
-    - other_mons
+    - tag_quorum
     
-# # Making of the osds
-# - block:
-#     - role: block-devices
-#     - block:
-#         - role: osd
-#           when: ceph_osd_format == "filestore" or ceph_osd_format == "bluestore"
-#           with_items: "{{ free_disks }}"
-#           loop_control:
-#             loop_var: free_osd
-#       when: free_disks is defined
-#   when: inventory_hostname in groups['osds']
+# Making of the osds
+- hosts: osds
+  become: yes
+  gather_facts: yes
+  roles:
+    - osd
+  tags:
+    - tag_osd
 
-# # Pool creation
-# - role: pool
-#   when: ansible_hostname == node1
+# Pool creation
+- hosts: node1
+  become: yes
+  gather_facts: no
+  roles:
+    - pool
+  tags:
+    - tag_pool
 
-# # RDB creation
-# - block:
-#     - role: rbd
-#   when: inventory_hostname in groups['clients']
+# RDB creation
+- hosts: ceph-clients
+  become: yes
+  gather_facts: no
+  roles:
+    - rbd
+  tags:
+    - tag_rdb
+
