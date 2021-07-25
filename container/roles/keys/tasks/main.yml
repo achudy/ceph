@@ -1,0 +1,8 @@
+---
+# The hosts need to have keys distributed
+
+- name: Configure SSH keys
+  import_tasks: ssh.yml
+
+- name: Configure keys for a mon keyring
+  import_tasks: mon-keyring.yml

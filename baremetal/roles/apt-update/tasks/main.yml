@@ -6,6 +6,9 @@
     update_cache: yes
     cache_valid_time: 3600
 
+- name: Dpkg interruption
+  shell: dpkg --configure -a
+
 #TODO maybe do in apt?
 - name: Check if there are available updates
   command: /usr/lib/update-notifier/apt-check --package-names

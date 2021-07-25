@@ -1,0 +1,77 @@
+---
+#Ceph configuration
+
+- hosts: all
+  become: yes
+  gather_facts: no
+  tasks:
+    - debug: var=inventory_hostname
+  tags: 
+    - tag_debug
+
+# NTP role
+- hosts: all
+  become: yes
+  gather_facts: yes
+  roles: 
+    - ntp
+  tags:
+    - tag_ntp
+
+# First mon
+- hosts: node1
+  become: yes
+  gather_facts: no
+  roles:
+    - ceph-conf
+    - keys
+    - mon
+    - mgr
+  tags: 
+    - tag_mon1
+    
+# Synchronization of the other mons
+- hosts: other-mons
+  become: yes
+  gather_facts: yes
+  roles:
+    - ceph-conf-sync
+  tags:
+    - tag_synchro
+    
+# Making of the other mons
+- hosts: other-mons
+  become: yes
+  gather_facts: yes
+  roles:
+    - quorum
+  tags:
+    - tag_quorum
+    
+# Making of the osds
+- hosts: osds
+  become: yes
+  gather_facts: yes
+  roles:
+    - osd
+  tags:
+    - tag_osd
+
+# Pool creation
+- hosts: node1
+  become: yes
+  gather_facts: no
+  roles:
+    - pool
+  tags:
+    - tag_pool
+
+# RDB creation
+- hosts: ceph-clients
+  become: yes
+  gather_facts: no
+  roles:
+    - rbd
+  tags:
+    - tag_rdb
+

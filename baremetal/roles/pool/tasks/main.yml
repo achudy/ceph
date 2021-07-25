@@ -1,0 +1,14 @@
+---
+#Making appropriate pools for the OSDs
+# TODO see the pool size
+- name: create pool
+  shell: "ceph osd pool create {{ item }} 64 64"
+  args:
+    executable: /bin/bash
+  with_items: "{{ ceph_pools }}"
+
+- name: enable rbd on pools
+  shell: ceph osd pool application enable {{ item }} rbd
+  args:
+    executable: /bin/bash
+  with_items: "{{ ceph_pools }}"

@@ -1,0 +1,8 @@
+---
+# Making sure they join a quorum.
+
+- name: Mon quorum
+  import_tasks: mon_quorum.yml
+
+- name: Mgr quorum
+  import_tasks: mgr_quorum.yml

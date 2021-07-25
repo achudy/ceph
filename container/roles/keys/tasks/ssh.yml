@@ -9,7 +9,7 @@
     # - name: check root ssh-keypair
     #   stat: path=/root/.ssh/id_ecdsa
     #   register: node1_check_ssh_keypair
-    
+
     - name: create new ssh-keypair for root
       # when: node1_check_ssh_keypair.stat.exists == False
       user:
