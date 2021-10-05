@@ -116,3 +116,112 @@ sudo mount -t ceph 192.168.0.130:6789,192.168.0.108:6789,192.168.0.24:6789:/ /ce
 /dev/sdb:
  Timing cached reads:   10084 MB in  1.99 seconds = 5059.42 MB/sec
  Timing buffered disk reads: 506 MB in  3.01 seconds = 168.39 MB/sec
+
+
+ ===
+ GCP
+ 1  git clone https://github.com/guv4/ceph-ans.git
+    2  sudo apt install git
+    3  sudo apt install python
+    4  sudo apt install python3
+    5  git clone https://github.com/guv4/ceph-ans.git
+    6  ls
+    7  cd ceph-ans/
+    8  ls
+    9  vi inventory/hosts 
+   10  ssh 10.186.0.3
+   11  sudo su
+   12  su cephuser
+   13  cd
+   14  ls .ssh/
+   15  ls /home/cephuser/.ssh/
+   16  sudo ls /home/cephuser/.ssh/
+   17  sudo cat /home/cephuser/.ssh/id_rsa.pub
+   18  sudo cat /home/cephuser/.ssh/known_ho
+   19  sudo cat /home/cephuser/.ssh/known_hosts
+   20  vi /home/cephuser/.ssh/known_hosts
+   21  sudo vi /home/cephuser/.ssh/known_hosts
+   22  su cephuser
+   23  sudo cat /home/cephuser/.ssh/known_hosts
+   24  sudo vi /home/cephuser/.ssh/known_hosts
+   25  sudo cat /home/cephuser/.ssh/known_hosts
+   26  sudo vi /home/cephuser/.ssh/authorized_keys
+   27  su cephuser
+   28  sudo cat /home/cephuser/.ssh/id-rsa
+   29  sudo cat /home/cephuser/.ssh/id-rsa.pub
+   30  sudo cat /home/cephuser/.ssh/
+   31  sudo ls /home/cephuser/.ssh/
+   32  sudo cat /home/cephuser/.ssh/id_rsa.pub
+   33  sudo vi /home/cephuser/.ssh/authorized_keys
+   34  sudo cat /home/cephuser/.ssh/authorized_keys
+   35  sudo su
+   36  su cephuser
+   37  lsblk
+   38  cd /home/chudy_arkadiusz/
+   39  ls
+   40  cd ceph-ans/
+   41  ls
+   42  sudo apt install ansible
+   43  ansible-playbook -i=inventory/hosts site-container.yml -vv
+   44  ls
+   45  cd ..
+   46  rm -rf ceph-ans/
+   47  git clone https://github.com/guv4/ceph.git
+   57  sudo apt install software-properties-common
+   58  sudo add-apt-repository --yes --update ppa:ansible/ansible
+   59  sudo apt install ansible
+   60  ansible --version
+   61  sudo apt remove ansible
+   62  sudo add-apt-repository --yes --update ppa:ansible/ansible
+   63  sudo apt install python3
+   64  ansible --version
+   65  python -m pip install ansible
+   66  python3 -m pip install ansible
+   67  sudo apt autoremove
+   68  sudo apt update -y
+   69  ubuntu --version
+   70  version
+   71  sudo add-apt-repository --yes --update ppa:ansible/ansible
+   72  sudo add-apt-repository --remove ppa:ansible/ansible
+   73  sudo apt update
+   74  sudo add-apt-repository --yes --update ppa:ansible/ansible
+   75  sudo add-apt-repository --remove ppa:ansible/ansible
+   76  reboot
+   77  sudo reboot
+   78  sudo apt install python3
+   79  sudo apt update
+   80  history
+   1  ls
+    2  ssh-keygen
+    3  ssh-copy-id cephuser@10.186.0.2
+    4  ls ../.ssh/
+    5  exit
+    6  ssh cephuser@10.186.0.3
+    7  exit
+    8  ssh cephuser@10.186.0.3
+    9  sudo restart sshd
+   10  sudo systemctl restart sshd
+   11  ssh cephuser@10.186.0.3
+   12  ssh cephuser@10.186.0.3 -vvv
+   13  exit
+   14  ssh cephuser@10.186.0.3 -vvv
+   15  ssh-keygen
+   16  cat ~/.ssh/id_rsa.pub 
+   17  exit
+   18  ls .ssh
+   19  cd
+   20  ls .ssh
+   21  vi .ssh/authorized_keys 
+   22  cat .ssh/authorized_keys 
+   23  vi .ssh/authorized_keys 
+   24  ssh cephuser@10.186.0.3 -vvv
+   25  exit
+   26  ansible-playbook -i inventory/hosts site-container.yml -vv
+   27  ansible-playbook -i inventory/hosts site-container.yml -vvv
+   28  ansible --version
+   29  sudo apt update -y && sudo apt upgrade -y && sudo apt autoclean -y
+   30  ansible --version
+   31  exit
+   32  history
+
+   
