@@ -19,7 +19,7 @@ dummy:
 ceph_release_num:
  octopus: 15
 
-ansible_python_interpreter: /usr/bin/python3
+#ansible_python_interpreter: /usr/bin/python3
 
 # The 'cluster' variable determines the name of the cluster.
 # Changing the default value to something else means that you will

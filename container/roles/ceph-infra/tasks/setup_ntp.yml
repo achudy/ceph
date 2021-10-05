@@ -31,6 +31,8 @@
       register: result
       until: result is succeeded
       when: ntp_daemon_type == "chronyd"
+      vars: 
+        ansible_python_interpreter: /usr/bin/python2
 
 - name: enable the ntp daemon and disable the rest
   block:

@@ -35,6 +35,8 @@
       inventory_hostname in groups.get(mgr_group_name, []) or
       inventory_hostname in groups.get(rbdmirror_group_name, []) or
       inventory_hostname in groups.get(iscsi_gw_group_name, [])
+  vars:
+    ansible_python_interpreter: /usr/bin/python2
 
 - name: add logrotate configuration
   template:

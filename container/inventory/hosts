@@ -8,12 +8,15 @@ mons:
     node-1:
       ansible_host: 10.186.0.9
       ansible_user: cephuser
+      ansible_python_interpreter: /usr/bin/python2
     node-2:
       ansible_host: 10.186.0.7
       ansible_user: cephuser
+      ansible_python_interpreter: /usr/bin/python2
     node-3:
       ansible_host: 10.186.0.8
       ansible_user: cephuser
+      ansible_python_interpreter: /usr/bin/python2
 osds:
   hosts:
     node-1:
