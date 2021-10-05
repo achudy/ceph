@@ -1,0 +1,68 @@
+#clients:
+#  hosts:
+#    client1:
+#      ansible_host: 192.168.0.122
+#      ansible_user: cephuser
+mons:
+  hosts:
+    node-1:
+      ansible_host: 192.168.0.230
+      ansible_user: cephuser
+    node-2:
+      ansible_host: 192.168.0.172
+      ansible_user: cephuser
+    node-3:
+      ansible_host: 192.168.0.108
+      ansible_user: cephuser
+osds:
+  hosts:
+    node-1:
+      ansible_host: 192.168.0.230
+      lvm_volumes:
+        - {'data': 'osd-0', 'data_vg': 'ceph-block-0'}
+    node-2:
+      ansible_host: 192.168.0.172
+      lvm_volumes:
+        - {'data': 'osd-1', 'data_vg': 'ceph-block-1'}
+        - {'data': 'osd-2', 'data_vg': 'ceph-block-2'}
+    node-3:
+      ansible_host: 192.168.0.108
+      lvm_volumes:
+        - {'data': 'osd-3', 'data_vg': 'ceph-block-3'}
+        - {'data': 'osd-4', 'data_vg': 'ceph-block-4'}
+#    node-4:
+#      ansible_host: 192.168.0.74
+#      lvm_volumes:
+#        - {'data': 'osd-5', 'data_vg': 'ceph-block-5'}
+#        - {'data': 'osd-6', 'data_vg': 'ceph-block-6'}
+#        - {'data': 'osd-7', 'data_vg': 'ceph-block-7'}
+mdss:
+  hosts:
+    node-1:
+      ansible_host: 192.168.0.230
+    node-2:
+      ansible_host: 192.168.0.172
+    node-3:
+      ansible_host: 192.168.0.108
+mgrs:
+  hosts:
+    node-1:
+      ansible_host: 192.168.0.230
+    node-2:
+      ansible_host: 192.168.0.172
+    node-3:
+      ansible_host: 192.168.0.108
+grafana-server:
+  hosts:
+    node-1:
+      ansible_host: 192.168.0.230
+    node-2:
+      ansible_host: 192.168.0.172
+rgws:
+  hosts:
+    node-1:
+      ansible_host: 192.168.0.230
+    node-2:
+      ansible_host: 192.168.0.172
+    node-3:
+      ansible_host: 192.168.0.108

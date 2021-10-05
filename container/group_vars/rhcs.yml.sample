@@ -16,10 +16,23 @@ dummy:
 ######################################
 # Releases name to number dictionary #
 ######################################
-ceph_release_num:
- octopus: 15
+#ceph_release_num:
+#  dumpling: 0.67
+#  emperor: 0.72
+#  firefly: 0.80
+#  giant: 0.87
+#  hammer: 0.94
+#  infernalis: 9
+#  jewel: 10
+#  kraken: 11
+#  luminous: 12
+#  mimic: 13
+#  nautilus: 14
+#  octopus: 15
+#  pacific: 16
+#  quincy: 17
+#  dev: 99
 
-ansible_python_interpreter: /usr/bin/python3
 
 # The 'cluster' variable determines the name of the cluster.
 # Changing the default value to something else means that you will
@@ -30,47 +43,69 @@ ansible_python_interpreter: /usr/bin/python3
 # An easier way to handle this is to use the environment variable CEPH_ARGS
 # So run: "export CEPH_ARGS="--cluster foo"
 # With that you will be able to run "ceph health" normally
-cluster: ceph
+#cluster: ceph
 
 # Inventory host group variables
-mon_group_name: mons
-osd_group_name: osds
-rgw_group_name: rgws
-mds_group_name: mdss
-mgr_group_name: mgrs
+#mon_group_name: mons
+#osd_group_name: osds
+#rgw_group_name: rgws
+#mds_group_name: mdss
+#nfs_group_name: nfss
+#rbdmirror_group_name: rbdmirrors
+#client_group_name: clients
+#iscsi_gw_group_name: iscsigws
+#mgr_group_name: mgrs
+#rgwloadbalancer_group_name: rgwloadbalancers
+#monitoring_group_name: monitoring
 
 # If configure_firewall is true, then ansible will try to configure the
 # appropriate firewalling rules so that Ceph daemons can communicate
 # with each others.
-configure_firewall: False
+#configure_firewall: True
 
 # Open ports on corresponding nodes if firewall is installed on it
-ceph_mon_firewall_zone: public
-ceph_mgr_firewall_zone: public
-ceph_osd_firewall_zone: public
-ceph_rgw_firewall_zone: public
-ceph_mds_firewall_zone: public
-ceph_dashboard_firewall_zone: public
+#ceph_mon_firewall_zone: public
+#ceph_mgr_firewall_zone: public
+#ceph_osd_firewall_zone: public
+#ceph_rgw_firewall_zone: public
+#ceph_mds_firewall_zone: public
+#ceph_nfs_firewall_zone: public
+#ceph_rbdmirror_firewall_zone: public
+#ceph_iscsi_firewall_zone: public
+#ceph_dashboard_firewall_zone: public
+#ceph_rgwloadbalancer_firewall_zone: public
+
 
 ############
 # PACKAGES #
 ############
 #debian_package_dependencies: []
 
+#centos_package_dependencies:
+#  - epel-release
+#  - "{{ (ansible_facts['distribution_major_version'] is version('8', '>=')) | ternary('python3-libselinux', 'libselinux-python') }}"
+
+#redhat_package_dependencies: []
+
+#suse_package_dependencies: []
+
+# Whether or not to install the ceph-test package.
+#ceph_test: false
+
 # Enable the ntp service by default to avoid clock skew on ceph nodes
 # Disable if an appropriate NTP client is already installed and configured
-ntp_service_enabled: true
+#ntp_service_enabled: true
 
 # Set type of NTP client daemon to use, valid entries are chronyd, ntpd or timesyncd
-ntp_daemon_type: chronyd
+#ntp_daemon_type: chronyd
 
 # This variable determines if ceph packages can be updated.  If False, the
 # package resources will use "state=present".  If True, they will use
 # "state=latest".
-upgrade_ceph_packages: False
+#upgrade_ceph_packages: False
 
 #ceph_use_distro_backports: false # DEBIAN ONLY
-ceph_directories_mode: "0755"
+#ceph_directories_mode: "0755"
 
 ###########
 # INSTALL #
@@ -89,7 +124,7 @@ ceph_origin: repository
 #  - local
 
 
-ceph_repository: community
+ceph_repository: rhcs
 #valid_ceph_repository:
 #  - community
 #  - rhcs
@@ -103,10 +138,10 @@ ceph_repository: community
 #
 # Enabled when ceph_repository == 'community'
 #
-ceph_mirror: https://download.ceph.com
-ceph_stable_key: https://download.ceph.com/keys/release.asc
-ceph_stable_release: octopus
-ceph_stable_repo: "{{ ceph_mirror }}/debian-{{ ceph_stable_release }}"
+#ceph_mirror: https://download.ceph.com
+#ceph_stable_key: https://download.ceph.com/keys/release.asc
+#ceph_stable_release: dummy
+#ceph_stable_repo: "{{ ceph_mirror }}/debian-{{ ceph_stable_release }}"
 
 #nfs_ganesha_stable: true # use stable repos for nfs-ganesha
 #nfs_ganesha_stable_branch: V3.5-stable
@@ -117,6 +152,81 @@ ceph_stable_repo: "{{ ceph_mirror }}/debian-{{ ceph_stable_release }}"
 # # for a list of available Debian distributions, visit http://download.ceph.com/debian-{{ ceph_stable_release }}/dists/
 # for more info read: https://github.com/ceph/ceph-ansible/issues/305
 #ceph_stable_distro_source: "{{ ansible_facts['distribution_release'] }}"
+
+
+# REPOSITORY: RHCS VERSION RED HAT STORAGE (from 5.0)
+#
+# Enabled when ceph_repository == 'rhcs'
+#
+# This version is supported on RHEL 8
+#
+ceph_rhcs_version: 5
+
+
+# REPOSITORY: UBUNTU CLOUD ARCHIVE
+#
+# Enabled when ceph_repository == 'uca'
+#
+# This allows the install of Ceph from the Ubuntu Cloud Archive.  The Ubuntu Cloud Archive
+# usually has newer Ceph releases than the normal distro repository.
+#
+#
+#ceph_stable_repo_uca: "http://ubuntu-cloud.archive.canonical.com/ubuntu"
+#ceph_stable_openstack_release_uca: queens
+#ceph_stable_release_uca: "{{ ansible_facts['distribution_release'] }}-updates/{{ ceph_stable_openstack_release_uca }}"
+
+# REPOSITORY: openSUSE OBS
+#
+# Enabled when ceph_repository == 'obs'
+#
+# This allows the install of Ceph from the openSUSE OBS repository. The OBS repository
+# usually has newer Ceph releases than the normal distro repository.
+#
+#
+#ceph_obs_repo: "https://download.opensuse.org/repositories/filesystems:/ceph:/{{ ceph_stable_release }}/openSUSE_Leap_{{ ansible_facts['distribution_version'] }}/"
+
+# REPOSITORY: DEV
+#
+# Enabled when ceph_repository == 'dev'
+#
+#ceph_dev_branch: master # development branch you would like to use e.g: master, wip-hack
+#ceph_dev_sha1: latest # distinct sha1 to use, defaults to 'latest' (as in latest built)
+
+#nfs_ganesha_dev: false # use development repos for nfs-ganesha
+
+# Set this to choose the version of ceph dev libraries used in the nfs-ganesha packages from shaman
+# flavors so far include: ceph_master, ceph_jewel, ceph_kraken, ceph_luminous
+#nfs_ganesha_flavor: "ceph_master"
+
+ceph_iscsi_config_dev: false
+
+
+# REPOSITORY: CUSTOM
+#
+# Enabled when ceph_repository == 'custom'
+#
+# Use a custom repository to install ceph.  For RPM, ceph_custom_repo should be
+# a URL to the .repo file to be installed on the targets.  For deb,
+# ceph_custom_repo should be the URL to the repo base.
+#
+#ceph_custom_key: https://server.domain.com/ceph-custom-repo/key.asc
+#ceph_custom_repo: https://server.domain.com/ceph-custom-repo
+
+
+# ORIGIN: LOCAL CEPH INSTALLATION
+#
+# Enabled when ceph_repository == 'local'
+#
+# Path to DESTDIR of the ceph install
+#ceph_installation_dir: "/path/to/ceph_installation/"
+# Whether or not to use installer script rundep_installer.sh
+# This script takes in rundep and installs the packages line by line onto the machine
+# If this is set to false then it is assumed that the machine ceph is being copied onto will already have
+# all runtime dependencies installed
+#use_installer: false
+# Root directory for ceph-ansible
+#ansible_dir: "/path/to/ceph-ansible"
+
 
 ######################
 # CEPH CONFIGURATION #
@@ -132,16 +242,16 @@ ceph_stable_repo: "{{ ceph_mirror }}/debian-{{ ceph_stable_release }}"
 # false, you *must* generate `fsid` in another way.
 # ACTIVATE THE FSID VARIABLE FOR NON-VAGRANT DEPLOYMENT
 #fsid: "{{ cluster_uuid.stdout }}"
-generate_fsid: true
+#generate_fsid: true
 
-ceph_conf_key_directory: /etc/ceph
+#ceph_conf_key_directory: /etc/ceph
 
-ceph_uid: "{{ '64045' if not containerized_deployment | bool and ansible_facts['os_family'] == 'Debian' else '167' }}"
+#ceph_uid: "{{ '64045' if not containerized_deployment | bool and ansible_facts['os_family'] == 'Debian' else '167' }}"
 
 # Permissions for keyring files in /etc/ceph
-ceph_keyring_permissions: '0600'
+#ceph_keyring_permissions: '0600'
 
-cephx: true
+#cephx: true
 
 ## Client options
 #
@@ -191,11 +301,11 @@ cephx: true
 # These variables must be defined at least in all.yml and overrided if needed (inventory host file or group_vars/*.yml).
 # Eg. If you want to specify for each monitor which address the monitor will bind to you can set it in your **inventory host file** by using 'monitor_address' variable.
 # Preference will go to monitor_address if both monitor_address and monitor_interface are defined.
-monitor_interface: enp0s3
+#monitor_interface: interface
 #monitor_address: x.x.x.x
 #monitor_address_block: subnet
 # set to either ipv4 or ipv6, whichever your network is using
-ip_version: ipv4
+#ip_version: ipv4
 
 #mon_host_v1:
 #  enabled: True
@@ -211,17 +321,17 @@ ip_version: ipv4
 # When pg_autoscale_mode is set to True, you must add the target_size_ratio key with a correct value
 # `pg_num` and `pgp_num` keys will be ignored, even if specified.
 # eg:
+#  cephfs_data_pool:
+#    name: "{{ cephfs_data if cephfs_data is defined else 'cephfs_data' }}"
+#    target_size_ratio: 0.2
+#cephfs: cephfs # name of the ceph filesystem
 #cephfs_data_pool:
 #  name: "{{ cephfs_data if cephfs_data is defined else 'cephfs_data' }}"
-#    target_size_ratio: 0.2
-cephfs: cephfs # name of the ceph filesystem
-cephfs_data_pool:
-  name: "{{ cephfs_data if cephfs_data is defined else 'cephfs_data' }}"
-cephfs_metadata_pool:
-  name: "{{ cephfs_metadata if cephfs_metadata is defined else 'cephfs_metadata' }}"
-cephfs_pools:
-  - "{{ cephfs_data_pool }}"
-  - "{{ cephfs_metadata_pool }}"
+#cephfs_metadata_pool:
+#  name: "{{ cephfs_metadata if cephfs_metadata is defined else 'cephfs_metadata' }}"
+#cephfs_pools:
+#  - "{{ cephfs_data_pool }}"
+#  - "{{ cephfs_metadata_pool }}"
 
 ## OSD options
 #
@@ -232,12 +342,12 @@ cephfs_pools:
 #osd_memory_target: 4294967296
 #journal_size: 5120 # OSD journal size in MB
 #block_db_size: -1 # block db size in bytes for the ceph-volume lvm batch. -1 means use the default of 'as big as possible'.
-public_network: 192.168.0.0/0
-cluster_network: "{{ public_network | regex_replace(' ', '') }}"
+#public_network: 0.0.0.0/0
+#cluster_network: "{{ public_network | regex_replace(' ', '') }}"
 #osd_mkfs_type: xfs
 #osd_mkfs_options_xfs: -f -i size=2048
 #osd_mount_options_xfs: noatime,largeio,inode64,swalloc
-osd_objectstore: bluestore
+#osd_objectstore: bluestore
 
 # Any device containing these patterns in their path will be excluded.
 #osd_auto_discovery_exclude: "dm-*|loop*|md*|rbd*"
@@ -255,16 +365,16 @@ osd_objectstore: bluestore
 
 ## Rados Gateway options
 #
-radosgw_frontend_type: beast # For additional frontends see: https://docs.ceph.com/en/latest/radosgw/frontends/
+#radosgw_frontend_type: beast # For additional frontends see: https://docs.ceph.com/en/latest/radosgw/frontends/
 
-radosgw_civetweb_port: 8080
+#radosgw_civetweb_port: 8080
 #radosgw_civetweb_num_threads: 512
 #radosgw_civetweb_options: "num_threads={{ radosgw_civetweb_num_threads }}"
 # For additional civetweb configuration options available such as logging,
 # keepalive, and timeout settings, please see the civetweb docs at
 # https://github.com/civetweb/civetweb/blob/master/docs/UserManual.md
 
-radosgw_frontend_port: "{{ radosgw_civetweb_port if radosgw_frontend_type == 'civetweb' else '8080' }}"
+#radosgw_frontend_port: "{{ radosgw_civetweb_port if radosgw_frontend_type == 'civetweb' else '8080' }}"
 # The server private key, public certificate and any other CA or intermediate certificates should be in one file, in PEM format.
 #radosgw_frontend_ssl_certificate: ""
 #radosgw_frontend_ssl_certificate_data: "" # certificate contents to be written to path defined by radosgw_frontend_ssl_certificate
@@ -276,7 +386,7 @@ radosgw_frontend_port: "{{ radosgw_civetweb_port if radosgw_frontend_type == 'ci
 # These variables must be defined at least in all.yml and overrided if needed (inventory host file or group_vars/*.yml).
 # Eg. If you want to specify for each radosgw node which address the radosgw will bind to you can set it in your **inventory host file** by using 'radosgw_address' variable.
 # Preference will go to radosgw_address if both radosgw_address and radosgw_interface are defined.
-radosgw_interface: enp0s3
+#radosgw_interface: interface
 #radosgw_address: x.x.x.x
 #radosgw_address_block: subnet
 #radosgw_keystone_ssl: false # activate this when using keystone PKI keys
@@ -302,21 +412,21 @@ radosgw_interface: enp0s3
 # for both monitors and osds.
 #
 # Monitor handler checks
-handler_health_mon_check_retries: 10
-handler_health_mon_check_delay: 20
+#handler_health_mon_check_retries: 10
+#handler_health_mon_check_delay: 20
 #
 # OSD handler checks
-handler_health_osd_check_retries: 40
-handler_health_osd_check_delay: 30
-handler_health_osd_check: true
+#handler_health_osd_check_retries: 40
+#handler_health_osd_check_delay: 30
+#handler_health_osd_check: true
 #
 # MDS handler checks
-handler_health_mds_check_retries: 5
-handler_health_mds_check_delay: 10
+#handler_health_mds_check_retries: 5
+#handler_health_mds_check_delay: 10
 #
 # RGW handler checks
-handler_health_rgw_check_retries: 5
-handler_health_rgw_check_delay: 10
+#handler_health_rgw_check_retries: 5
+#handler_health_rgw_check_delay: 10
 
 # NFS handler checks
 #handler_health_nfs_check_retries: 5
@@ -327,15 +437,15 @@ handler_health_rgw_check_delay: 10
 #handler_health_rbd_mirror_check_delay: 10
 
 # MGR handler checks
-handler_health_mgr_check_retries: 5
-handler_health_mgr_check_delay: 10
+#handler_health_mgr_check_retries: 5
+#handler_health_mgr_check_delay: 10
 
 ## health mon/osds check retries/delay:
 
-health_mon_check_retries: 20
-health_mon_check_delay: 10
-health_osd_check_retries: 20
-health_osd_check_delay: 10
+#health_mon_check_retries: 20
+#health_mon_check_delay: 10
+#health_osd_check_retries: 20
+#health_osd_check_delay: 10
 
 
 ###############
@@ -438,15 +548,15 @@ health_osd_check_delay: 10
 ##########
 # DOCKER #
 ##########
-ceph_docker_image: "ceph/daemon"
-ceph_docker_image_tag: latest-master
-ceph_docker_registry: docker.io
-ceph_docker_registry_auth: false
-ceph_docker_registry_username: cephuser
-ceph_docker_registry_password: password
+ceph_docker_image: "rhceph/rhceph-5-rhel8"
+ceph_docker_image_tag: "latest"
+ceph_docker_registry: "registry.redhat.io"
+ceph_docker_registry_auth: true
+#ceph_docker_registry_username:
+#ceph_docker_registry_password:
 #ceph_docker_http_proxy:
 #ceph_docker_https_proxy:
-ceph_docker_no_proxy: "localhost,127.0.0.1"
+#ceph_docker_no_proxy: "localhost,127.0.0.1"
 ## Client only docker image - defaults to {{ ceph_docker_image }}
 #ceph_client_docker_image: "{{ ceph_docker_image }}"
 #ceph_client_docker_image_tag: "{{ ceph_docker_image_tag }}"
@@ -463,8 +573,8 @@ containerized_deployment: true
 #####################
 # Docker pull retry #
 #####################
-docker_pull_retry: 3
-docker_pull_timeout: "500s"
+#docker_pull_retry: 3
+#docker_pull_timeout: "300s"
 
 
 #############
@@ -528,42 +638,42 @@ docker_pull_timeout: "500s"
 #############
 # DASHBOARD #
 #############
-dashboard_enabled: True
+#dashboard_enabled: True
 # Choose http or https
 # For https, you should set dashboard.crt/key and grafana.crt/key
 # If you define the dashboard_crt and dashboard_key variables, but leave them as '',
 # then we will autogenerate a cert and keyfile
-dashboard_protocol: http
-dashboard_port: 8443
+#dashboard_protocol: https
+#dashboard_port: 8443
 # set this variable to the network you want the dashboard to listen on. (Default to public_network)
 #dashboard_network: "{{ public_network }}"
-dashboard_admin_user: admin
+#dashboard_admin_user: admin
 #dashboard_admin_user_ro: false
 # This variable must be set with a strong custom password when dashboard_enabled is True
-dashboard_admin_password: p@ssw0rd
+#dashboard_admin_password: p@ssw0rd
 # We only need this for SSL (https) connections
 #dashboard_crt: ''
 #dashboard_key: ''
 #dashboard_certificate_cn: ceph-dashboard
 #dashboard_tls_external: false
 #dashboard_grafana_api_no_ssl_verify: "{{ true if dashboard_protocol == 'https' and not grafana_crt and not grafana_key else false }}"
-dashboard_rgw_api_user_id: ceph-dashboard
+#dashboard_rgw_api_user_id: ceph-dashboard
 #dashboard_rgw_api_admin_resource: ''
 #dashboard_rgw_api_no_ssl_verify: False
 #dashboard_frontend_vip: ''
 #prometheus_frontend_vip: ''
 #alertmanager_frontend_vip: ''
-#node_exporter_container_image: "docker.io/prom/node-exporter:v0.17.0"
+node_exporter_container_image: registry.redhat.io/openshift4/ose-prometheus-node-exporter:v4.6
 #node_exporter_port: 9100
-grafana_admin_user: admin
+#grafana_admin_user: admin
 # This variable must be set with a strong custom password when dashboard_enabled is True
-grafana_admin_password: admin
+#grafana_admin_password: admin
 # We only need this for SSL (https) connections
 #grafana_crt: ''
 #grafana_key: ''
 # When using https, please fill with a hostname for which grafana_crt is valid.
 #grafana_server_fqdn: ''
-#grafana_container_image: "docker.io/grafana/grafana:6.7.4"
+grafana_container_image: registry.redhat.io/rhceph/rhceph-5-dashboard-rhel8:5
 #grafana_container_cpu_period: 100000
 #grafana_container_cpu_cores: 2
 # container_memory is in GB
@@ -590,7 +700,7 @@ grafana_admin_password: admin
 #grafana_allow_embedding: True
 #grafana_port: 3000
 #grafana_conf_overrides: {}
-#prometheus_container_image: "docker.io/prom/prometheus:v2.7.2"
+prometheus_container_image: registry.redhat.io/openshift4/ose-prometheus:v4.6
 #prometheus_container_cpu_period: 100000
 #prometheus_container_cpu_cores: 2
 # container_memory is in GB
@@ -603,7 +713,7 @@ grafana_admin_password: admin
 # Uncomment out this variable if you need to customize the retention period for prometheus storage.
 # set it to '30d' if you want to retain 30 days of data.
 #prometheus_storage_tsdb_retention_time: 15d
-#alertmanager_container_image: "docker.io/prom/alertmanager:v0.16.2"
+alertmanager_container_image: registry.redhat.io/openshift4/ose-prometheus-alertmanager:v4.6
 #alertmanager_container_cpu_period: 100000
 #alertmanager_container_cpu_cores: 2
 # container_memory is in GB

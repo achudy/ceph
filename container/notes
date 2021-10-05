@@ -1,0 +1,118 @@
+{
+chronyc sources
+sudo su
+useradd -d /home/cephuser -m cephuser
+passwd cephuser
+
+echo "cephuser ALL = (root) NOPASSWD:ALL" | tee /etc/sudoers.d/cephuser
+chmod 0440 /etc/sudoers.d/cephuser
+}
+
+su cephuser
+ssh-keygen
+ssh-copy-id cephuser@192.168.0.229
+ssh-copy-id cephuser@192.168.0.192
+ssh-copy-id cephuser@192.168.0.109
+ssh-copy-id cephuser@192.168.0.185
+
+ssh-keygen -f "/home/cephuser/.ssh/known_hosts" -R "192.168.0.99"
+ssh-copy-id cephuser@192.168.0.99
+ssh-keygen -f "/home/cephuser/.ssh/known_hosts" -R "192.168.0.100"
+ssh-copy-id cephuser@192.168.0.100
+ssh-keygen -f "/home/cephuser/.ssh/known_hosts" -R "192.168.0.101"
+ssh-copy-id cephuser@192.168.0.101
+ssh-keygen -f "/home/cephuser/.ssh/known_hosts" -R "192.168.0.102" 
+ssh-copy-id cephuser@192.168.0.102 
+ssh-keygen -f "/home/cephuser/.ssh/known_hosts" -R "192.168.0.103" 
+ssh-copy-id cephuser@192.168.0.103 
+
+{
+sudo systemctl stop firewalld
+sudo systemctl disable firewalld
+}
+
+{%1
+vgcreate ceph-block-0 /dev/sdb
+vgcreate ceph-block-1 /dev/sdc
+vgcreate ceph-block-2 /dev/sdd
+vgcreate ceph-block-3 /dev/sde
+vgcreate ceph-block-4 /dev/sdf
+
+lvcreate -l 100%FREE -n osd-0 ceph-block-0
+lvcreate -l 100%FREE -n osd-1 ceph-block-1
+lvcreate -l 100%FREE -n osd-2 ceph-block-2
+lvcreate -l 100%FREE -n osd-3 ceph-block-3
+lvcreate -l 100%FREE -n osd-4 ceph-block-4
+}
+
+{%2
+vgcreate ceph-block-5 /dev/sdb
+vgcreate ceph-block-6 /dev/sdc
+vgcreate ceph-block-7 /dev/sdd
+vgcreate ceph-block-8 /dev/sde
+vgcreate ceph-block-9 /dev/sdf
+
+lvcreate -l 100%FREE -n osd-5 ceph-block-5
+lvcreate -l 100%FREE -n osd-6 ceph-block-6
+lvcreate -l 100%FREE -n osd-7 ceph-block-7
+lvcreate -l 100%FREE -n osd-8 ceph-block-8
+lvcreate -l 100%FREE -n osd-9 ceph-block-9
+}
+
+{%3
+vgcreate ceph-block-10 /dev/sdb
+vgcreate ceph-block-11 /dev/sdc
+vgcreate ceph-block-12 /dev/sdd
+vgcreate ceph-block-13 /dev/sde
+vgcreate ceph-block-14 /dev/sdf
+
+lvcreate -l 100%FREE -n osd-10 ceph-block-10
+lvcreate -l 100%FREE -n osd-11 ceph-block-11
+lvcreate -l 100%FREE -n osd-12 ceph-block-12
+lvcreate -l 100%FREE -n osd-13 ceph-block-13
+lvcreate -l 100%FREE -n osd-14 ceph-block-14
+}
+
+{%4
+vgcreate ceph-block-15 /dev/sdb
+vgcreate ceph-block-16 /dev/sdc
+vgcreate ceph-block-17 /dev/sdd
+vgcreate ceph-block-18 /dev/sde
+vgcreate ceph-block-19 /dev/sdf
+
+lvcreate -l 100%FREE -n osd-15 ceph-block-15
+lvcreate -l 100%FREE -n osd-16 ceph-block-16
+lvcreate -l 100%FREE -n osd-17 ceph-block-17
+lvcreate -l 100%FREE -n osd-18 ceph-block-18
+lvcreate -l 100%FREE -n osd-19 ceph-block-19
+}
+
+{
+sudo yum install python3 -y
+}
+pip3 install ansible --proxy http://10.247.10.24:8080
+
+
+
+
+ansible-playbook -i=inventory/hosts site-container.yml
+
+sudo mount -t ceph 192.168.0.130:6789,192.168.0.108:6789,192.168.0.24:6789:/ /ceph-data
+
+sudo mount -t ceph 192.168.0.130:6789,192.168.0.108:6789,192.168.0.24:6789:/ /ceph-data/ -o name=admin,secretfile=/etc/ceph/admin.secret  
+
+
+
+[arkadiusz.chudy@cloud-ceph-tst01-node-01 ~]$ sudo hdparm -t /dev/sdb
+
+/dev/sdb:
+ Timing buffered disk reads: 532 MB in  3.01 seconds = 176.67 MB/sec
+[arkadiusz.chudy@cloud-ceph-tst01-node-01 ~]$ sudo hdparm -t /dev/sdb
+
+/dev/sdb:
+ Timing buffered disk reads: 586 MB in  3.01 seconds = 194.56 MB/sec
+[arkadiusz.chudy@cloud-ceph-tst01-node-01 ~]$ sudo hdparm -Tt /dev/sdb
+
+/dev/sdb:
+ Timing cached reads:   10084 MB in  1.99 seconds = 5059.42 MB/sec
+ Timing buffered disk reads: 506 MB in  3.01 seconds = 168.39 MB/sec
