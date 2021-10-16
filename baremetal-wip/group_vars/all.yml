@@ -528,7 +528,7 @@ docker_pull_timeout: "500s"
 #############
 # DASHBOARD #
 #############
-dashboard_enabled: True
+dashboard_enabled: False
 # Choose http or https
 # For https, you should set dashboard.crt/key and grafana.crt/key
 # If you define the dashboard_crt and dashboard_key variables, but leave them as '',
