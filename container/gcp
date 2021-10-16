@@ -47,3 +47,6 @@ sudo vi /usr/libexec/urlgrabber-ext-down
 sudo yum install ansible -y
 ansible-playbook -i inventory/hosts site-container.yml -vv
 
+
+sudo su
+yum update -y && yum upgrade -y && yum autoremove -y
