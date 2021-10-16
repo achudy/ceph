@@ -274,3 +274,53 @@ sudo mount -t ceph 192.168.0.130:6789,192.168.0.108:6789,192.168.0.24:6789:/ /ce
    36  exit
    37  hisotry
    38  history
+
+
+   ====
+   Cos dziala
+      58  git status
+   59  git checkout container-wip
+   60  git checkout -b container-wip
+   61  git status
+   62  vi inventory/hosts 
+   63  git status
+   64  ansible-playbook -i inventory/hosts site-container.yml -vv
+   65  python --version
+   66  sudo yum install python3
+   67  ansible-playbook -i inventory/hosts site-container.yml -vv
+   68  ansible --version
+   69  hash -r 
+   70  ansible --version
+   71  apt install --no-install-recommends python-netaddr
+   72* sudo yum install -
+   73  sudo yum install python-netaddr
+   74  ansible-playbook -i inventory/hosts site-container.yml -vv
+   75  sudo yum install pip3
+   76  python3 --version
+   77  sudo yum remove python
+   78  sudo yum remove python
+   79  sudo yum remove ansible
+   80  sudo yum autoremove
+   81  pip3 install ansible
+   82  pip3 uninstall ansible
+   83  sudo yum install ansible
+   84  vi ansible.cfg 
+   85  ansible-playbook -i inventory/hosts site-container.yml -vv
+   86  ip a
+   87  vi group_vars/all.yml
+   88  git status
+   89  git add ansible.cfg 
+   90  git add group_vars/all.yml
+   91  git add inventory/hosts 
+   92  git commit -am "centos"
+   93  git config --global user.email "chudy.arkadiusz@gmail.com"
+   94  git config --global user.name "guv4"
+   95  git commit -am "centos"
+   96  git push
+   97  git push
+   98  git config --global push.default simple
+   99  git push
+  100  git push --set-upstream origin container-wip
+  101  git push
+  102  ansible-playbook -i inventory/hosts site-container.yml -vv
+  103  history
