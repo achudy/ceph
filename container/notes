@@ -228,19 +228,19 @@ sudo mount -t ceph 192.168.0.130:6789,192.168.0.108:6789,192.168.0.24:6789:/ /ce
    Centos
 
    ==root
-   1  useradd -d /home/cephuser -m cephuser
-    2  passwd cephuser
-    3  echo "cephuser ALL = (root) NOPASSWD:ALL" | tee /etc/sudoers.d/cephuser
-    4  chmod 0440 /etc/sudoers.d/cephuser
-    5  su cephuser
-    6  history
+useradd -d /home/cephuser -m cephuser
+passwd cephuser
+echo "cephuser ALL = (root) NOPASSWD:ALL" | tee /etc/sudoers.d/cephuser
+chmod 0440 /etc/sudoers.d/cephuser
+su cephuser
+history
 
     ==cephuser
-       1  ssh-keygen
+ssh-keygen
     2  cd
     3  cat .ssh/id_rsa.pub 
     4  vi .ssh/authorized_keys
-    5  cat .ssh/authorized_keys 
+cat .ssh/authorized_keys 
     6  ssh cephuser@10.186.0.8
     7  systemctl restart sshd
     8  sudo systemctl restart sshd
@@ -263,11 +263,11 @@ sudo mount -t ceph 192.168.0.130:6789,192.168.0.108:6789,192.168.0.24:6789:/ /ce
    25  sudo systemctl restart sshd
    26  ssh cephuser@10.186.0.8
    27  ssh cephuser@10.186.0.8
-   28  sudo vi .ssh/authorized_keys 
+vi .ssh/authorized_keys 
    29  ssh cephuser@10.186.0.8
    30  sudo systemctl restart sshd
    31  ssh cephuser@10.186.0.8
-   32  chmod 700 .ssh/authorized_keys 
+chmod 700 .ssh/authorized_keys 
    33  ssh cephuser@10.186.0.8
    34  ssh cephuser@10.186.0.7
    35  history
@@ -324,3 +324,116 @@ sudo mount -t ceph 192.168.0.130:6789,192.168.0.108:6789,192.168.0.24:6789:/ /ce
   101  git push
   102  ansible-playbook -i inventory/hosts site-container.yml -vv
   103  history
+  103  history
+  104  sudo lsblk
+  105  vgcreate ceph-block-0 /dev/sdb
+sudo yum install lvm2 -y
+sudo vgcreate ceph-block-0 /dev/sdb
+sudo lvcreate -l 100%FREE -n osd-0 ceph-block-0
+sudo yum install python-netaddr
+  108  ansible-playbook -i inventory/hosts site-container.yml -vv
+  109  grep -r dnf .
+  110  vi raw_install_python.yml 
+  111  python --version
+  112  grep -r chrony .
+  113  vi roles/ceph-infra/tasks/setup_ntp.yml 
+  114  vi group_vars/all.yml
+  115  git add ansible.cfg 
+  116  vi ansible.cfg 
+  117  ansible-playbook -i inventory/hosts site-container.yml -vv
+  118  vi group_vars/all.yml
+  119  ansible-playbook -i inventory/hosts site-container.yml -vv
+  120  vi group_vars/all.yml
+  121  sudo yum install chrony
+  122  ansible-playbook -i inventory/hosts site-container.yml -vv
+  123  sudo yum install chrony
+  124  vi group_vars/all.yml
+  125  vi ansible.cfg 
+  126  ansible-playbook -i inventory/hosts site-container.yml -vv
+  127  python --version
+  128  ansible-playbook -i inventory/hosts site-container.yml -vv
+  129  vi roles/ceph-infra/tasks/setup_ntp.yml 
+  130  ansible-playbook -i inventory/hosts site-container.yml -vv
+  131  vi roles/ceph-infra/tasks/setup_ntp.yml 
+  132  ansible-playbook -i inventory/hosts site-container.yml -vv
+  133  sudo groupadd docker
+  134  sudo usermod -aG docker cephuser
+  135  docker ps
+  136  sudo systemctl restart docker
+  137  sudo chmod 666 /var/run/docker.sock
+  138  docker ps
+  139  vi roles/ceph-infra/tasks/setup_ntp.yml 
+  140  ansible-playbook -i inventory/hosts site-container.yml -vv
+  141  vi roles/ceph-infra/tasks/setup_ntp.yml 
+  142  grep -r logrotate .
+  143  vi roles/ceph-infra/tasks/main.yml 
+  144  ansible-playbook -i inventory/hosts site-container.yml -vv
+  145  vi roles/ceph-infra/tasks/main.yml 
+  146  ansible-playbook -i inventory/hosts site-container.yml -vv
+  147  vi roles/ceph-infra/tasks/main.yml 
+  148  ansible-playbook -i inventory/hosts site-container.yml -vv
+  149  vi inventory/hosts 
+  150  ansible-playbook -i inventory/hosts site-container.yml -vv
+  151  git status
+  152  git add ansible.cfg 
+  153  git add group_vars/
+  154  git add inventory/
+  155  git add roles/
+  156  git commit -am "centos-further"
+  157  git push
+  158  git pull
+  159  ansible-playbook -i inventory/hosts site-container.yml -vv
+  160  sudo sh
+
+
+  ==============GCP node
+  1  history
+    2  exit
+    3  ssh-keygen
+    4  cd
+    5  cat .ssh/id_rsa.pub 
+    6  vi .ssh/authorized_keys
+    7  sudo systemctl restart sshd
+    8  sudo vi /etc/ssh/sshd_config
+    9  sudo systemctl restart sshd
+   10  sudo vi /etc/ssh/sshd_config
+   11  sudo systemctl restart sshd
+   12  sudo vi /etc/ssh/sshd_config
+   13  sudo systemctl restart sshd
+   14  vi .ssh/authorized_keys
+   15  sudo systemctl restart sshd
+   16  chmod 700 .ssh/authorized_keys
+   17  sudo yum update -y && sudo yum upgrade -y && sudo yum autoremove -y
+   18  sudo yum update -y && sudo yum upgrade -y && sudo yum autoremove -y
+   19  sudo yum install yum-utils -y
+   20  sudo yum-complete-transaction
+   21  sudo yum-complete-transaction --cleanup-only
+   22  sudo yum update -y && sudo yum upgrade -y && sudo yum autoremove -y
+   23  sudo yum install docker -y
+   24  cd
+   25  sudo vgcreate ceph-block-1 /dev/sdb
+   26  sudo lvcreate -l 100%FREE -n osd-0 ceph-block-0
+   27  sudo lvcreate -l 100%FREE -n osd-1 ceph-block-1
+   28  sudo yum install chrony -y
+   29  sudo yum install chrony -y
+   30  sudo 
+   31  sudo yum install chrony
+   32  sudo yum update
+   33  sudo vi /usr/bin/yum
+   34  sudo yum update
+   35  sudo yum install chrony -y
+   36  sudo yum install chrony -y
+   37  python --version
+   38  sudo yum install python
+   39  alias python='/usr/bin/python2.7'
+   40  . ~/.bashrc
+   41  history
+
+
+
+
+
+
+gcloud compute instances create node1 --project=ceph-inz --zone=europe-central2-a --machine-type=e2-medium --network-interface=network-tier=PREMIUM,subnet=default --maintenance-policy=MIGRATE --service-account=288353858221-compute@developer.gserviceaccount.com --scopes=https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/trace.append --create-disk=auto-delete=yes,boot=yes,device-name=node1,image=projects/centos-cloud/global/images/centos-7-v20210916,mode=rw,size=20,type=projects/ceph-inz/zones/europe-central2-a/diskTypes/pd-balanced --create-disk=device-name=osd-0,mode=rw,name=osd-0,size=100,type=projects/ceph-inz/zones/europe-central2-a/diskTypes/pd-standard --no-shielded-secure-boot --shielded-vtpm --shielded-integrity-monitoring --reservation-affinity=any
+gcloud compute instances create node2 --project=ceph-inz --zone=europe-central2-a --machine-type=e2-medium --network-interface=network-tier=PREMIUM,subnet=default --maintenance-policy=MIGRATE --service-account=288353858221-compute@developer.gserviceaccount.com --scopes=https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/trace.append --create-disk=auto-delete=yes,boot=yes,device-name=node2,image=projects/centos-cloud/global/images/centos-7-v20210916,mode=rw,size=20,type=projects/ceph-inz/zones/europe-central2-a/diskTypes/pd-balanced --create-disk=device-name=osd-1,mode=rw,name=osd-1,size=100,type=projects/ceph-inz/zones/europe-central2-a/diskTypes/pd-standard --no-shielded-secure-boot --shielded-vtpm --shielded-integrity-monitoring --reservation-affinity=any
+gcloud compute instances create node3 --project=ceph-inz --zone=europe-central2-a --machine-type=e2-medium --network-interface=network-tier=PREMIUM,subnet=default --maintenance-policy=MIGRATE --service-account=288353858221-compute@developer.gserviceaccount.com --scopes=https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/trace.append --create-disk=auto-delete=yes,boot=yes,device-name=node3,image=projects/centos-cloud/global/images/centos-7-v20210916,mode=rw,size=20,type=projects/ceph-inz/zones/europe-central2-a/diskTypes/pd-balanced --create-disk=device-name=osd-2,mode=rw,name=osd-2,size=100,type=projects/ceph-inz/zones/europe-central2-a/diskTypes/pd-standard --no-shielded-secure-boot --shielded-vtpm --shielded-integrity-monitoring --reservation-affinity=any
