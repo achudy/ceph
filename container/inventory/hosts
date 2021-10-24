@@ -1,35 +1,35 @@
-#clients:
-#  hosts:
-#    client1:
-#      ansible_host: 192.168.0.122
-#      ansible_user: cephuser
+clients:
+  hosts:
+    client1:
+      ansible_host: 10.186.0.48
+      ansible_user: cephuser
 mons:
   hosts:
     node-1:
-      ansible_host: 10.186.0.13
+      ansible_host: 10.186.0.45
       ansible_user: cephuser
       ansible_python_interpreter: /usr/bin/python2
     node-2:
-      ansible_host: 10.186.0.14
+      ansible_host: 10.186.0.46
       ansible_user: cephuser
       ansible_python_interpreter: /usr/bin/python2
     node-3:
-      ansible_host: 10.186.0.15
+      ansible_host: 10.186.0.47
       ansible_user: cephuser
       ansible_python_interpreter: /usr/bin/python2
 osds:
   hosts:
     node-1:
-      ansible_host: 10.186.0.13
+      ansible_host: 10.186.0.45
       lvm_volumes:
         - {'data': 'osd-0', 'data_vg': 'ceph-block-0'}
     node-2:
-      ansible_host: 10.186.0.14
+      ansible_host: 10.186.0.46
       lvm_volumes:
         - {'data': 'osd-1', 'data_vg': 'ceph-block-1'}
 #        - {'data': 'osd-2', 'data_vg': 'ceph-block-2'}
     node-3:
-      ansible_host: 10.186.0.15
+      ansible_host: 10.186.0.47
       lvm_volumes:
         - {'data': 'osd-2', 'data_vg': 'ceph-block-2'}
 #        - {'data': 'osd-3', 'data_vg': 'ceph-block-3'}
@@ -43,30 +43,30 @@ osds:
 mdss:
   hosts:
     node-1:
-      ansible_host: 10.186.0.13
+      ansible_host: 10.186.0.45
     node-2:
-      ansible_host: 10.186.0.14
+      ansible_host: 10.186.0.46
     node-3:
-      ansible_host: 10.186.0.15
+      ansible_host: 10.186.0.47
 mgrs:
   hosts:
     node-1:
-      ansible_host: 10.186.0.13
+      ansible_host: 10.186.0.45
     node-2:
-      ansible_host: 10.186.0.14
+      ansible_host: 10.186.0.46
     node-3:
-      ansible_host: 10.186.0.15
+      ansible_host: 10.186.0.47
 grafana-server:
   hosts:
     node-1:
-      ansible_host: 10.186.0.13
+      ansible_host: 10.186.0.45
     node-2:
-      ansible_host: 10.186.0.14
+      ansible_host: 10.186.0.46
 rgws:
   hosts:
     node-1:
-      ansible_host: 10.186.0.13
+      ansible_host: 10.186.0.45
     node-2:
-      ansible_host: 10.186.0.14
+      ansible_host: 10.186.0.46
     node-3:
-      ansible_host: 10.186.0.15
+      ansible_host: 10.186.0.47
