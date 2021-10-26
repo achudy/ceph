@@ -143,6 +143,7 @@ ceph_keyring_permissions: '0600'
 
 cephx: false
 
+
 ## Client options
 #
 #rbd_cache: "true"
