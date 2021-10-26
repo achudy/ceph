@@ -17,21 +17,14 @@ sudo vi /usr/bin/yum #python2
 sudo vi /usr/libexec/urlgrabber-ext-down #python2
 
 ## NODE 1 ROOT
-sudo su
 useradd -d /home/cephuser -m cephuser
-echo -e "cephuser\ncephuser" | passwd cephuser
+passwd cephuser
 echo "cephuser ALL = (root) NOPASSWD:ALL" | tee /etc/sudoers.d/cephuser
 chmod 0440 /etc/sudoers.d/cephuser
-##
-sudo update-ca-trust
-sudo rpm --import https://download.ceph.com/keys/release.asc
-sudo rpm --import 'https://git.ceph.com/release.asc'
-##
 su cephuser
 
 ## NODE 1 CEPHUSER
 ssh-keygen
-cd
 cat .ssh/id_rsa.pub 
 vi .ssh/authorized_keys
 chmod 700 .ssh/authorized_keys 
@@ -52,6 +45,3 @@ sudo vi /usr/libexec/urlgrabber-ext-down
 sudo yum install ansible -y
 ansible-playbook -i inventory/hosts site-container.yml -vv
 
-
-sudo su
-yum update -y && yum upgrade -y && yum autoremove -y
