@@ -58,6 +58,12 @@ For container:
 ansible-playbook -i container/inventory/hosts site-container.yml -vv
 ```
 
+### Mounting the data to a client folder
+```
+mkdir /mount-point
+mount -t ceph IP_1,IP_2,IP_3,...:/ /mount-point 
+```
+
 
 ### Tests
 Install HDPARM

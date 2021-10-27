@@ -1,47 +1,28 @@
-### NODE 3 ROOT
-useradd -d /home/cephuser -m cephuser
-passwd cephuser
-echo "cephuser ALL = (root) NOPASSWD:ALL" | tee /etc/sudoers.d/cephuser
-chmod 0440 /etc/sudoers.d/cephuser
-su cephuser
 
-## NODE 3 cephuser
-ssh-keygen
-cat .ssh/id_rsa.pub
-vi .ssh/authorized_keys
-chmod 700 .ssh/authorized_keys
-sudo yum install lvm2 -y
-sudo vgcreate ceph-block-2 /dev/sdb
-sudo lvcreate -l 100%FREE -n osd-2 ceph-block-2
-sudo vi /usr/bin/yum #python2
-sudo vi /usr/libexec/urlgrabber-ext-down #python2
-
-## NODE 1 ROOT
+## JUST SOME NOTES, tests and what not, transferred to the README mostly
 sudo su
 useradd -d /home/cephuser -m cephuser
 echo -e "cephuser\ncephuser" | passwd cephuser
 echo "cephuser ALL = (root) NOPASSWD:ALL" | tee /etc/sudoers.d/cephuser
 chmod 0440 /etc/sudoers.d/cephuser
-##
-sudo update-ca-trust
-sudo rpm --import https://download.ceph.com/keys/release.asc
-sudo rpm --import 'https://git.ceph.com/release.asc'
-##
-su cephuser
 
-## NODE 1 CEPHUSER
+#sudo update-ca-trust
+#sudo rpm --import https://download.ceph.com/keys/release.asc
+#sudo rpm --import 'https://git.ceph.com/release.asc'
+
+su cephuser
 cd
 ssh-keygen
 
 cat .ssh/id_rsa.pub 
 vi .ssh/authorized_keys
 chmod 700 .ssh/authorized_keys 
-ssh cephuser@10.186.0.12
-ssh cephuser@10.186.0.11
+#ssh cephuser@10.186.0.12
+#ssh cephuser@10.186.0.11
 sudo yum install git -y
 git clone https://github.com/guv4/ceph.git
 cd ceph/container/
-git checkout container-wip
+#git checkout container-wip
 vi inventory/hosts 
 sudo lsblk
 sudo yum install lvm2 -y
@@ -54,9 +35,7 @@ sudo yum install ansible -y
 ansible-playbook -i inventory/hosts site-container.yml -vv
 
 
-sudo su
-yum update -y && yum upgrade -y && yum autoremove -y
-
+# TESTS
 
 sudo yum install -y hdparm
 ceph osd pool create scbench 16 16
