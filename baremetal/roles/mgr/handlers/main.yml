@@ -1,4 +1,0 @@
-- name: restart mgr
-  systemd:
-    name: "ceph-mgr@{{ ansible_hostname }}.service"
-    state: restarted

@@ -1,8 +1,0 @@
----
-#OSD configuration
-
-- name: Getting free block devices connected to the server
-  import_tasks: block-devices.yml
-
-- name: Making of the OSDS
-  import_tasks: osds.yml
