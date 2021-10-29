@@ -335,3 +335,30 @@ gcloud compute instances create node1 --project=ceph-inz --zone=europe-central2-
 gcloud compute instances create node2 --project=ceph-inz --zone=europe-central2-a --machine-type=e2-medium --network-interface=network-tier=PREMIUM,subnet=default --maintenance-policy=MIGRATE --service-account=288353858221-compute@developer.gserviceaccount.com --scopes=https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/trace.append --create-disk=auto-delete=yes,boot=yes,device-name=node2,image=projects/centos-cloud/global/images/centos-7-v20211028,mode=rw,size=20,type=projects/ceph-inz/zones/europe-central2-a/diskTypes/pd-balanced --create-disk=auto-delete=yes,device-name=osd-3,mode=rw,name=osd-3,size=100,type=projects/ceph-inz/zones/europe-central2-a/diskTypes/pd-standard --create-disk=auto-delete=yes,device-name=osd-4,mode=rw,name=osd-4,size=100,type=projects/ceph-inz/zones/europe-central2-a/diskTypes/pd-standard --create-disk=auto-delete=yes,device-name=osd-5,mode=rw,name=osd-5,size=100,type=projects/ceph-inz/zones/europe-central2-a/diskTypes/pd-standard --no-shielded-secure-boot --shielded-vtpm --shielded-integrity-monitoring --reservation-affinity=any
 gcloud compute instances create node3 --project=ceph-inz --zone=europe-central2-a --machine-type=e2-medium --network-interface=network-tier=PREMIUM,subnet=default --maintenance-policy=MIGRATE --service-account=288353858221-compute@developer.gserviceaccount.com --scopes=https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/trace.append --create-disk=auto-delete=yes,boot=yes,device-name=node3,image=projects/centos-cloud/global/images/centos-7-v20211028,mode=rw,size=20,type=projects/ceph-inz/zones/europe-central2-a/diskTypes/pd-balanced --create-disk=auto-delete=yes,device-name=osd-6,mode=rw,name=osd-6,size=100,type=projects/ceph-inz/zones/europe-central2-a/diskTypes/pd-standard --create-disk=auto-delete=yes,device-name=osd-7,mode=rw,name=osd-7,size=100,type=projects/ceph-inz/zones/europe-central2-a/diskTypes/pd-standard --create-disk=auto-delete=yes,device-name=osd-8,mode=rw,name=osd-8,size=100,type=projects/ceph-inz/zones/europe-central2-a/diskTypes/pd-standard --no-shielded-secure-boot --shielded-vtpm --shielded-integrity-monitoring --reservation-affinity=any
 gcloud compute instances create node4 --project=ceph-inz --zone=europe-central2-a --machine-type=e2-medium --network-interface=network-tier=PREMIUM,subnet=default --maintenance-policy=MIGRATE --service-account=288353858221-compute@developer.gserviceaccount.com --scopes=https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/trace.append --create-disk=auto-delete=yes,boot=yes,device-name=node4,image=projects/centos-cloud/global/images/centos-7-v20211028,mode=rw,size=20,type=projects/ceph-inz/zones/europe-central2-a/diskTypes/pd-balanced --create-disk=auto-delete=yes,device-name=osd-9,mode=rw,name=osd-9,size=100,type=projects/ceph-inz/zones/europe-central2-a/diskTypes/pd-standard --create-disk=auto-delete=yes,device-name=osd-10,mode=rw,name=osd-10,size=100,type=projects/ceph-inz/zones/europe-central2-a/diskTypes/pd-standard --create-disk=auto-delete=yes,device-name=osd-11,mode=rw,name=osd-11,size=100,type=projects/ceph-inz/zones/europe-central2-a/diskTypes/pd-standard --no-shielded-secure-boot --shielded-vtpm --shielded-integrity-monitoring --reservation-affinity=any
+
+
+sudo vgcreate ceph-block-0 /dev/sdb
+sudo vgcreate ceph-block-1 /dev/sdc
+sudo vgcreate ceph-block-2 /dev/sdd
+sudo vgcreate ceph-block-3 /dev/sdb
+sudo vgcreate ceph-block-4 /dev/sdc
+sudo vgcreate ceph-block-5 /dev/sdd
+sudo vgcreate ceph-block-6 /dev/sdb
+sudo vgcreate ceph-block-7 /dev/sdc
+sudo vgcreate ceph-block-8 /dev/sdd
+sudo vgcreate ceph-block-9 /dev/sdb
+sudo vgcreate ceph-block-10 /dev/sdc
+sudo vgcreate ceph-block-11 /dev/sdd
+
+sudo lvcreate -l 100%FREE -n osd-0 ceph-block-0
+sudo lvcreate -l 100%FREE -n osd-1 ceph-block-1
+sudo lvcreate -l 100%FREE -n osd-2 ceph-block-2
+sudo lvcreate -l 100%FREE -n osd-3 ceph-block-3
+sudo lvcreate -l 100%FREE -n osd-4 ceph-block-4
+sudo lvcreate -l 100%FREE -n osd-5 ceph-block-5
+sudo lvcreate -l 100%FREE -n osd-6 ceph-block-6
+sudo lvcreate -l 100%FREE -n osd-7 ceph-block-7
+sudo lvcreate -l 100%FREE -n osd-8 ceph-block-8
+sudo lvcreate -l 100%FREE -n osd-9 ceph-block-9
+sudo lvcreate -l 100%FREE -n osd-10 ceph-block-10
+sudo lvcreate -l 100%FREE -n osd-11 ceph-block-11

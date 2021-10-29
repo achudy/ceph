@@ -51,11 +51,11 @@ vi inventory/hosts
 ### Execution
 For baremetal:
 ```
-ansible-playbook -i baremetal/inventory/hosts site.yml -vv
+ansible-playbook -i baremetal/inventory/hosts baremetal/site.yml -vv
 ```
 For container:
 ```
-ansible-playbook -i container/inventory/hosts site-container.yml -vv
+ansible-playbook -i container/inventory/hosts container/site-container.yml -vv
 ```
 
 ### Mounting the data to a client folder
@@ -94,11 +94,11 @@ done
 
 for i in {1..10}
 do
-    rados bench -p scbench 10 seq >> results_wr.txt
+    rados bench -p scbench 10 seq >> results_seq.txt
 done
 
 for i in {1..10}
 do
-    rados bench -p scbench 10 rand >> results_wr.txt
+    rados bench -p scbench 10 rand >> results_rand.txt
 done
 ```
