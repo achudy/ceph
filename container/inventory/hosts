@@ -27,19 +27,10 @@ osds:
       ansible_host: 10.186.0.46
       lvm_volumes:
         - {'data': 'osd-1', 'data_vg': 'ceph-block-1'}
-#        - {'data': 'osd-2', 'data_vg': 'ceph-block-2'}
     node-3:
       ansible_host: 10.186.0.47
       lvm_volumes:
         - {'data': 'osd-2', 'data_vg': 'ceph-block-2'}
-#        - {'data': 'osd-3', 'data_vg': 'ceph-block-3'}
-#        - {'data': 'osd-4', 'data_vg': 'ceph-block-4'}
-#    node-4:
-#      ansible_host: 192.168.0.74
-#      lvm_volumes:
-#        - {'data': 'osd-5', 'data_vg': 'ceph-block-5'}
-#        - {'data': 'osd-6', 'data_vg': 'ceph-block-6'}
-#        - {'data': 'osd-7', 'data_vg': 'ceph-block-7'}
 mdss:
   hosts:
     node-1:
