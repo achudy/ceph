@@ -76,6 +76,14 @@ Install HDPARM
 ```
 sudo yum install -y hdparm
 ```
+`hdparm` should't be executed in a container, because it is a hadware test.
+```
+#/bin/bash
+for i in {1..5}
+do
+    hdparm -tT /dev/sdb >> results_hdparm.txt
+done
+```
 
 Make a test pool for the benchmarks.
 ```
@@ -85,14 +93,8 @@ ceph osd pool create scbench 16 16
 Write and execute such script to get results in text form.
 
 This should be done with access to ceph (in ceph-mon container or on the main node with baremetal).
-`hdparm` should't be executed in a container, because it is a hadware test.
 ```
 #/bin/bash
-for i in {1..5}
-do
-    hdparm -tT /dev/sdb >> results_hdparm.txt
-done
-
 for i in {1..10}
 do
     rados bench -p scbench 10 write --no-cleanup >> results_wr.txt
