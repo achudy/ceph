@@ -21,15 +21,21 @@ ssh-keygen
 ```
 cat .ssh/id_rsa.pub 
 vi .ssh/authorized_keys
+```
+```
 chmod 700 .ssh/authorized_keys 
 ```
 
 ```
+sudo sed -i 's/python/python2/' /usr/bin/yum
+sudo sed -i 's/python/python2/' /usr/libexec/urlgrabber-ext-down
+```
+
+Replace X with osd numbers on OSD nodes
+```
 sudo yum install lvm2 -y
 sudo vgcreate ceph-block-X /dev/sdb
 sudo lvcreate -l 100%FREE -n osd-X ceph-block-X
-sudo sed -i 's/python/python2/' /usr/bin/yum
-sudo sed -i 's/python/python2/' /usr/libexec/urlgrabber-ext-down
 ```
 
 Only on main node - one to execute ansible with.
