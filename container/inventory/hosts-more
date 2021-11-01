@@ -38,13 +38,13 @@ osds:
         - {'data': 'osd-7', 'data_vg': 'ceph-block-7'}
         - {'data': 'osd-8', 'data_vg': 'ceph-block-8'}
     node-4:
-      ansible_host: 192.168._FOURTH
+      ansible_host: 10.186._FOURTH
       lvm_volumes:
         - {'data': 'osd-9', 'data_vg': 'ceph-block-9'}
         - {'data': 'osd-10', 'data_vg': 'ceph-block-10'}
         - {'data': 'osd-11', 'data_vg': 'ceph-block-11'}
     node-5:
-      ansible_host: 192.168._FIFTH
+      ansible_host: 10.186._FIFTH
       lvm_volumes:
         - {'data': 'osd-12', 'data_vg': 'ceph-block-12'}
         - {'data': 'osd-13', 'data_vg': 'ceph-block-13'}
